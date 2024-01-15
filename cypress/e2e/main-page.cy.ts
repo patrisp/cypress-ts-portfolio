@@ -3,7 +3,6 @@ describe('Main Page display and interaction', () => {
     let socialLinkNames: string[] = ['Facebook', 'Twitter', 'Linkedin'];
     let socialLinkUrls: string[] = ['http://www.facebook.com', 'https://twitter.com/', 'https://uk.linkedin.com/'];
     
-
     beforeEach(() => {
         cy.visit('/');
     });
@@ -38,7 +37,10 @@ describe('Main Page display and interaction', () => {
         cy.get('.oneByOneSlide').trigger('mouseover');
         cy.get('.arrowButton').children().should('be.visible');
 
-       
+        cy.get('.nextArrow').click();
+        cy.get('#banner_slides').should('have.attr', 'style', 'display: block; left: -1920px;');
+        cy.get('.prevArrow').click();
+        cy.get('#banner_slides').should('have.attr', 'style', 'display: block; left: -960px;');
     });
 
 });
