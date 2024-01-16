@@ -43,4 +43,47 @@ describe('Main Page display and interaction', () => {
         cy.get('#banner_slides').should('have.attr', 'style', 'display: block; left: -960px;');
     });
 
+    it.only('Promo section contains correct details', () => {
+        //check promo details section
+        cy.get('.promo_section').children().should('have.length', 4);
+
+        /*
+
+        cy.get('.promo_block').eq(0).find('.promo_text').should('contain', 'Fast shipping').and('contain', 'For every order placed!');
+        
+        cy.get('.promo_block').eq(1).find('.promo_text').should('contain', 'Easy Payments').and('contain', 'Check out as guest!');
+
+        cy.get('.promo_block').eq(2).find('.promo_text').should('contain', 'Shipping Options').and('contain', 'Get items faster!');
+
+        cy.get('.promo_block').eq(3).find('.promo_text').should('contain', 'Large Variety').and('contain', 'Many different products available');
+
+        */
+
+        cy.get('.promo_block').each(($el) => {
+            cy.wrap($el).find('.fa').should('be.visible');
+        });
+
+        for(let i = 0; i<4; i++) {
+            cy.get('.promo_text').eq(i).as('promoText');
+            switch(i) {
+                case 0:
+                    cy.get('@promoText').should('contain', 'Fast shipping').and('contain', 'For every order placed!');
+                    break;
+                case 1:
+                    cy.get('@promoText').should('contain', 'Easy Payments').and('contain', 'Check out as guest!');;
+                    break;
+                case 2:
+                    cy.get('@promoText').should('contain', 'Shipping Options').and('contain', 'Get items faster!');
+                    break;
+                case 3:
+                    cy.get('@promoText').should('contain', 'Large Variety').and('contain', 'Many different products available');
+                    break;
+            }
+        }
+    });
+
+    it('Products displayed on the main page are contained within 4 sections', () => {
+        
+    });
+
 });
