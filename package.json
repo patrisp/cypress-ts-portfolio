@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/patrisp/cypress-ts-portfolio#readme",
   "devDependencies": {
-    "cypress": "^13.6.2",
+    "cypress": "^13.6.3",
     "typescript": "^5.3.3"
   }
 }

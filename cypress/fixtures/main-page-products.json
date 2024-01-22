@@ -1,0 +1,106 @@
+{
+    "featured": [
+        {
+            "name": "Skinsheen Bronzer Stick",
+            "currentPrice": "$29.50",
+            "priceOld": null,
+            "outOfStock": false
+        },
+        {
+            "name": "BeneFit Girl Meets Pearl",
+            "currentPrice": "$19.00",
+            "priceOld": "$30.00",
+            "outOfStock": true
+        },
+        {
+            "name": "Benefit Bella Bamba",
+            "currentPrice": "$28.00",
+            "priceOld": null,
+            "outOfStock": false
+        },
+        {
+            "name": "Tropiques Minerale Loose Bronzer",
+            "currentPrice": "$38.50",
+            "priceOld": null,
+            "outOfStock": false
+        }
+    ],
+    "latest": [
+        {
+            "name": "Absolute Anti-Age Spot Replenishing Unifying TreatmentSPF 15",
+            "currentPrice": "$42.00",
+            "priceOld": null,
+            "outOfStock": false
+        },
+        {
+            "name": "Absolue Eye Precious Cells",
+            "currentPrice": "$89.00",
+            "priceOld": "$105.00",
+            "outOfStock": false
+        },
+        {
+            "name": "Total Moisture Facial Cream",
+            "currentPrice": "$38.00",
+            "priceOld": null,
+            "outOfStock": false
+        },
+        {
+            "name": "Flash Bronzer Body Gel",
+            "currentPrice": "$29.00",
+            "priceOld": "$34.50",
+            "outOfStock": true
+        }
+    ],
+    "bestsellers": [
+        {
+            "name": "Skinsheen Bronzer Stick",
+            "currentPrice": "$29.50",
+            "priceOld": null,
+            "outOfStock": false
+        },
+        {
+            "name": "Womens high heel point toe stiletto sandals ankle strap court shoes",
+            "currentPrice": "$26.00",
+            "priceOld": null,
+            "outOfStock": false
+        },
+        {
+            "name": "New Ladies High Wedge Heel Toe Thong Diamante Flip Flop Sandals",
+            "currentPrice": "$26.00",
+            "priceOld": null,
+            "outOfStock": false
+        },
+        {
+            "name": "Absolue Eye Precious Cells",
+            "currentPrice": "$89.00",
+            "priceOld": "$105.00",
+            "outOfStock": false
+        }
+    ],
+    "specials": [
+        {
+            "name": "Absolue Eye Precious Cells",
+            "currentPrice": "$89.00",
+            "priceOld": "$105.00",
+            "outOfStock": false
+        },
+        {
+            "name": "Aqua Di Gio Pour Homme",
+            "currentPrice": "$45.00",
+            "priceOld": "$59.00",
+            "outOfStock": true
+        },
+        {
+            "name": "BeneFit Girl Meets Pearl",
+            "currentPrice": "$19.00",
+            "priceOld": "$30.00",
+            "outOfStock": true
+        },
+        {
+            "name": "Brunette Expressions Conditioner",
+            "currentPrice": "$24.00",
+            "priceOld": "27.00",
+            "outOfStock": false
+        }
+    ]
+}

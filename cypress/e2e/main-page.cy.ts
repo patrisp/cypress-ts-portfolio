@@ -1,8 +1,16 @@
+import productData from '../fixtures/main-page-products.json';
+
 describe('Main Page display and interaction', () => {
     let linkNames: string[] = ['About Us', 'Privacy Policy', 'Return Policy', 'Shipping', 'Contact Us', 'Site Map', 'Login'];
     let socialLinkNames: string[] = ['Facebook', 'Twitter', 'Linkedin'];
     let socialLinkUrls: string[] = ['http://www.facebook.com', 'https://twitter.com/', 'https://uk.linkedin.com/'];
-    
+   
+    before(() => {
+        cy.fixture('main-page-products.json').then((data) => {
+            globalThis.data = data;
+        })
+    });
+
     beforeEach(() => {
         cy.visit('/');
     });
@@ -43,28 +51,17 @@ describe('Main Page display and interaction', () => {
         cy.get('#banner_slides').should('have.attr', 'style', 'display: block; left: -960px;');
     });
 
-    it.only('Promo section contains correct details', () => {
+    it('Promo section contains correct details', () => {
         //check promo details section
         cy.get('.promo_section').children().should('have.length', 4);
-
-        /*
-
-        cy.get('.promo_block').eq(0).find('.promo_text').should('contain', 'Fast shipping').and('contain', 'For every order placed!');
-        
-        cy.get('.promo_block').eq(1).find('.promo_text').should('contain', 'Easy Payments').and('contain', 'Check out as guest!');
-
-        cy.get('.promo_block').eq(2).find('.promo_text').should('contain', 'Shipping Options').and('contain', 'Get items faster!');
-
-        cy.get('.promo_block').eq(3).find('.promo_text').should('contain', 'Large Variety').and('contain', 'Many different products available');
-
-        */
 
         cy.get('.promo_block').each(($el) => {
             cy.wrap($el).find('.fa').should('be.visible');
         });
 
-        for(let i = 0; i<4; i++) {
+        for(let i: number = 0; i<4; i++) {
             cy.get('.promo_text').eq(i).as('promoText');
+
             switch(i) {
                 case 0:
                     cy.get('@promoText').should('contain', 'Fast shipping').and('contain', 'For every order placed!');
@@ -82,8 +79,83 @@ describe('Main Page display and interaction', () => {
         }
     });
 
-    it('Products displayed on the main page are contained within 4 sections', () => {
-        
+    it.only('Products displayed on the main page are contained within 4 sections', () => {
+        //check the first section
+
+        cy.get('#block_frame_featured_1769').within(() => {
+            cy.get('.maintext').should('contain', 'Featured');
+            cy.get('.subtext').should('contain', 'See Our Most featured Products');
+            cy.get('.col-md-3').should('have.length', 4);
+            productData.featured.forEach((name: string, currentPrice: string, priceOld: string, outOfStock: boolean) => {
+                cy.get('.prdocutname').contains(name).parent('.col-md-3').within(() => {
+                    //pricing and sale logic
+                    if(priceOld != null) {
+                        cy.get('.sale').should('exist');
+                        cy.get('.pricenew').should('contain', currentPrice);
+                        cy.get('.priceold').should('contain', priceOld);
+                        cy.get('.oneprice').should('not.exist');
+                    } else {
+                        cy.get('.oneprice').should('contain', currentPrice);
+                        cy.get('.pricenew').should('not.exist');
+                        cy.get('.priceold').should('not.exist');
+                        cy.get('.sale').should('not.exist');
+                    }
+
+                    if(outOfStock = true) {
+                        cy.get('.productcart').should('not.exist');
+                        cy.get('.nostock').should('contain', 'Out of Stock');
+                    } else {
+                        cy.get('.productcart').should('exist');
+                        cy.get('.nostock').should('not.exist');
+                    }
+                });
+            });
+
+            //check product data
+            for(let i: number = 0; i < 4; i++) {
+                cy.get('.col-md-3.col-sm-6.col-xs-12').eq(i).within(() => {
+                    switch(i) {
+                        case 0:
+                            cy.get('.prdocutname').should('contain.text', 'Skinsheen Bronzer Stick');
+                            cy.get('.productcart').should('exist');
+                            cy.get('.oneprice').should('contain', '$29.50');
+                            break;
+                        case 1:
+                            cy.get('.prdocutname').should('contain.text', 'BeneFit Girl Meets Pearl');
+                            cy.get('.productcart').should('not.exist');
+                            cy.get('.nostock').should('exist');
+                            cy.get('.oneprice').should('not.exist');
+                            cy.get('.pricenew').should('contain', '$19.00');
+                            cy.get('.priceold').should('contain', '$30.00');
+                            break;
+                    }
+                });
+            }
+            cy.get('.col-md-3.col-sm-6.col-xs-12').eq(0).within(() => {
+                cy.get('.prdocutname').should('contain.text', 'Skinsheen Bronzer Stick');
+                cy.get('.productcart').should('exist');
+                cy.get('.oneprice').should('contain', '$29.50');
+            });
+
+        });
+        //check the second section
+        cy.get('#block_frame_latest_1770').within(() => {
+            cy.get('.maintext').should('contain', 'Latest Products');
+            cy.get('.subtext').should('contain', 'See New Products');
+            cy.get('.col-md-3').should('have.length', 4);
+        });
+        //check the third section
+        cy.get('#block_frame_bestsellers_1771').within(() => {
+            cy.get('.maintext').should('contain', 'Bestsellers');
+            cy.get('.subtext').should('contain', 'See Best Selling Products');
+            cy.get('.col-md-3').should('have.length', 4);
+        });
+        //check the fourth section
+        cy.get('#block_frame_special_1772').within(() => {
+            cy.get('.maintext').should('contain', 'Specials');
+            cy.get('.subtext').should('contain', 'See Products On Sale');
+            cy.get('.col-md-3').should('have.length', 4);
+        });
     });
 
 });
