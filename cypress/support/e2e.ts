@@ -15,7 +15,7 @@
 
 // Import commands.js using ES2015 syntax:
 import './commands'
-
+import './main-page-commands'
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 
@@ -28,5 +28,8 @@ Cypress.on('uncaught:exception', (err, runnable) => {
 // cypress/support/index.js
 // load and register the grep feature using "require" function
 // https://github.com/cypress-io/cypress/tree/develop/npm/grep
-const registerCypressGrep = require('@cypress/grep')
-registerCypressGrep()
+const registerCypressGrep = require('@cypress/grep');
+registerCypressGrep();
+
+require('cypress-plugin-steps');
+
