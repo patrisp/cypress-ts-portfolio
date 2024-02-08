@@ -35,3 +35,14 @@
 //     }
 //   }
 // }
+
+declare namespace Cypress {
+    interface Chainable {
+        checkFooterLinks(): Chainable<void>;
+        checkSocialMediaLinks(): Chainable<void>;
+        assertPromoSectionContent(): Chainable<void>;
+        assertProductSectionDetails(productType: string): Chainable<void>;
+        assertTestimonialsContent(): Chainable<void>;
+        assertFooterSectionContent(section: string): Chainable<void>;
+    }
+}

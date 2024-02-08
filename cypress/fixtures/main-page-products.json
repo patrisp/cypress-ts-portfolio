@@ -51,7 +51,7 @@
             "outOfStock": true
         }
     ],
-    "bestsellers": [
+    "bestseller": [
         {
             "name": "Skinsheen Bronzer Stick",
             "currentPrice": "$29.50",
@@ -77,7 +77,7 @@
             "outOfStock": false
         }
     ],
-    "specials": [
+    "special": [
         {
             "name": "Absolue Eye Precious Cells",
             "currentPrice": "$89.00",
