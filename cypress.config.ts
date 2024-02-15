@@ -7,6 +7,7 @@ export default defineConfig({
       require('@cypress/grep/src/plugin')(config);
       return config;
     },
-    baseUrl: 'https://automationteststore.com/'
+    baseUrl: 'https://automationteststore.com/',
+    watchForFileChanges: false
   },
 });

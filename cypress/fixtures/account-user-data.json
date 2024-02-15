@@ -1,0 +1,22 @@
+{
+  "personalDetails": {
+    "firstName": "Rosalie",
+    "lastName": "Beck",
+    "email": "patpawsbb93@mailinator.com",
+    "phone": "+48100100100",
+    "fax": "123456"
+  },
+  "address": {
+    "company": "Test Company LTD",
+    "addressLine1": "Test street",
+    "addressLine2": "Test blvrd",
+    "city": "Cracow",
+    "region": "Malopolskie",
+    "zip": "30-300",
+    "country": "Poland"
+  },
+  "loginDetails": {
+    "login": "patpawsbb93",
+    "password": "qwertyuiop"
+  }
+}

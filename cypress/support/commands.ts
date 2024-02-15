@@ -38,11 +38,19 @@
 
 declare namespace Cypress {
     interface Chainable {
+        //general commands
+        assertBreadcrumbs(secondBreadcrumb: string, thirdBreadcrumb?: string): Chainable<void>;
+        assertPageTitle(title: string): Chainable<void>;
+        //main page commands
         checkFooterLinks(): Chainable<void>;
         checkSocialMediaLinks(): Chainable<void>;
         assertPromoSectionContent(): Chainable<void>;
         assertProductSectionDetails(productType: string): Chainable<void>;
         assertTestimonialsContent(): Chainable<void>;
         assertFooterSectionContent(section: string): Chainable<void>;
+        //account commands
+        fillDetails(section: string, options?): Chainable<void>;
+        setNewsletter(enabled: boolean): Chainable<void>;
+        acceptTerms(accepted: boolean): Chainable<void>;
     }
 }

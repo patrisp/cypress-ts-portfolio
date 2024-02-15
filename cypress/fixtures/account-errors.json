@@ -1,0 +1,14 @@
+{
+    "loginInvalid": "Login name must be alphanumeric only and between 5 and 64 characters!",
+    "loginExists": "This login name is not available. Try different login name!",
+    "firstName": "First Name must be between 1 and 32 characters!",
+    "lastName": "Last Name must be between 1 and 32 characters!",
+    "emailInvalid": "Email Address does not appear to be valid!",
+    "emailExists": "Error: E-Mail Address is already registered!",
+    "address": "Address 1 must be between 3 and 128 characters!",
+    "city": "City must be between 3 and 128 characters!",
+    "zip": "Zip/postal code must be between 3 and 10 characters!",
+    "region": "Please select a region / state!",
+    "password": "Password must be between 4 and 20 characters!",
+    "policy": "You must agree to the Privacy Policy!"
+}
