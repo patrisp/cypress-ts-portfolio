@@ -109,86 +109,81 @@ describe('Account creation', () => {
             }); 
         });
     });
-
-    it('User cannot create a new account - incorrect or missing data', () => {
-        cy.step('Set test data - unique email and login values');
-        let existingEmail: string = 'example@example.com';
-        let existingLogin: string = 'test1234';
-
-        let emailName: string = 'patpaw' + (Math.random() + 1).toString(36).substring(7);
-        cy.readFile('cypress/fixtures/account-user-data.json').then((json) => {
-            json.personalDetails.email = `${emailName}@mailinator.com`;
-            json.loginDetails.login = emailName;
-            cy.writeFile('cypress/fixtures/account-user-data.json', json);
+    context('User cannot create a new account - incorrect or missing data', () => {
+        before(() => {
+            cy.step('Set test data - unique email and login values');
+            let emailName: string = 'patpaw' + (Math.random() + 1).toString(36).substring(7);
+            cy.readFile('cypress/fixtures/account-user-data.json').then((json) => {
+                json.personalDetails.email = `${emailName}@mailinator.com`;
+                json.loginDetails.login = emailName;
+                cy.writeFile('cypress/fixtures/account-user-data.json', json);
+            });
         });
 
-        cy.section('"Email already exists" scenario');
-        cy.step('Open "Create a new account" page');
-        cy.visit('/index.php?rt=account/create');
-
-        cy.step('Complete the form and submit it');
-        cy.readFile('cypress/fixtures/account-user-data.json').then((data) => {
-            cy.fillDetails('personal', {email: existingEmail});
-            cy.fillDetails('login', {login: data.loginDetails.login});
+        beforeEach(() => {
+            cy.visit('/index.php?rt=account/create');
         });
-        cy.fillDetails('address');
-        cy.setNewsletter(true);
-        cy.acceptTerms(true);
-        cy.get('button[title="Continue"]').click();
 
-        cy.step('Check error message');
-        cy.get('.alert').should('contain', error.emailExists);
+        it('Account cannot be created - email already exists', () => {
+            let existingEmail: string = 'example@example.com';
 
-        cy.section('"Login already exists" scenario');
-        cy.step('Open "Create a new account" page');
-        cy.go('back');
-        cy.visit('/index.php?rt=account/create');
+            cy.step('Complete the form and submit it');
+            cy.readFile('cypress/fixtures/account-user-data.json').then((data) => {
+                cy.fillDetails('personal', {email: existingEmail});
+                cy.fillDetails('login', {login: data.loginDetails.login});
+            });
+            cy.fillDetails('address');
+            cy.setNewsletter(true);
+            cy.acceptTerms(true);
+            cy.get('button[title="Continue"]').click();
 
-        cy.step('Complete the form and submit it');
-        cy.readFile('cypress/fixtures/account-user-data.json').then((data) => {
-            cy.fillDetails('personal', {email: data.personalDetails.email});
-            cy.fillDetails('login', {login: existingLogin});
+            cy.step('Check error message');
+            cy.get('.alert').should('contain', error.emailExists);
         });
-        cy.fillDetails('address');
-        cy.setNewsletter(true);
-        cy.acceptTerms(true);
-        cy.get('button[title="Continue"]').click();
 
-        cy.step('Check error message');
-        cy.get('.alert').should('contain', error.loginExists);
+        it('Account cannot be created - login already exists', () => {
+            let existingLogin: string = 'test1234';
+            
+            cy.step('Complete the form and submit it');
+            cy.readFile('cypress/fixtures/account-user-data.json').then((data) => {
+                cy.fillDetails('personal', {email: data.personalDetails.email});
+                cy.fillDetails('login', {login: existingLogin});
+                });
+            cy.fillDetails('address');
+            cy.setNewsletter(true);
+            cy.acceptTerms(true);
+            cy.get('button[title="Continue"]').click();
 
-        cy.section('"Required data is not provided" scenario');
-        cy.step('Open "Create a new account" page');
-        cy.go('back');
-        cy.visit('/index.php?rt=account/create');
-
-        cy.step('Do not complete the form and submit it');
-        cy.setNewsletter(true);
-        cy.acceptTerms(true);
-        cy.get('button[title="Continue"]').click();
-
-        cy.step('Check error message');
-        let errors: string[] = [error.address, error.city, error.emailInvalid, error.loginInvalid, error.password, error.zip, error.firstName, error.lastName, error.region];
-        errors.forEach(string => {
-            cy.get('.alert').should('contain', string);
+            cy.step('Check error message');
+            cy.get('.alert').should('contain', error.loginExists);
         });
-        
-        cy.section('"T&C are not accepted" scenario');
-        cy.step('Open "Create a new account" page');
-        cy.go('back');
-        cy.visit('/index.php?rt=account/create');
 
-        cy.step('Complete the form and submit it');
-        cy.readFile('cypress/fixtures/account-user-data.json').then((data) => {
-            cy.fillDetails('personal', {email: data.personalDetails.email});
-            cy.fillDetails('login', {login: data.loginDetails.login});
+        it('Account cannot be created - mandatory fields were not completed', () => {
+            cy.step('Do not complete the form and submit it');
+            cy.setNewsletter(true);
+            cy.acceptTerms(true);
+            cy.get('button[title="Continue"]').click();
+
+            cy.step('Check error message');
+            let errors: string[] = [error.address, error.city, error.emailInvalid, error.loginInvalid, error.password, error.zip, error.firstName, error.lastName, error.region];
+            errors.forEach(string => {
+                cy.get('.alert').should('contain', string);
+            });
         });
-        cy.fillDetails('address');
-        cy.setNewsletter(true);
-        cy.acceptTerms(false);
-        cy.get('button[title="Continue"]').click();
 
-        cy.step('Check error message');
-        cy.get('.alert').should('contain', error.policy);
+        it('Account cannot be created - user did not accept T&C', () => {
+            cy.step('Complete the form and submit it');
+            cy.readFile('cypress/fixtures/account-user-data.json').then((data) => {
+                cy.fillDetails('personal', {email: data.personalDetails.email});
+                cy.fillDetails('login', {login: data.loginDetails.login});
+            });
+            cy.fillDetails('address');
+            cy.setNewsletter(true);
+            cy.acceptTerms(false);
+            cy.get('button[title="Continue"]').click();
+
+            cy.step('Check error message');
+            cy.get('.alert').should('contain', error.policy);
+        });
     });
 });
