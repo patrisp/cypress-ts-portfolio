@@ -87,3 +87,7 @@ Cypress.Commands.add('acceptTerms', (accepted: boolean) => {
     }
 });
 
+Cypress.Commands.add('openAccountSection', (section: string) => {
+    cy.get('.side_account_list').find('li').contains(section).click();
+});
+
