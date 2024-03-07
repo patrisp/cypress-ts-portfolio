@@ -40,9 +40,10 @@ declare namespace Cypress {
     interface Chainable {
         //general commands
         login(): Chainable<void>;
-        assertBreadcrumbs(secondBreadcrumb: string, thirdBreadcrumb?: string): Chainable<void>;
+        assertBreadcrumbs(secondBreadcrumb: string, thirdBreadcrumb?: string, fourthBreadcrumb?: string): Chainable<void>;
         assertPageTitle(title: string): Chainable<void>;
         assertSuccessBanner(content: string): Chainable<void>;
+        assertErrorBanner(content: string): Chainable<void>;
         //main page commands
         checkFooterLinks(): Chainable<void>;
         checkSocialMediaLinks(): Chainable<void>;
@@ -55,5 +56,8 @@ declare namespace Cypress {
         setNewsletter(enabled: boolean): Chainable<void>;
         acceptTerms(accepted: boolean): Chainable<void>;
         openAccountSection(section: string): Chainable<void>;
+        changePassword(oldPassword: string, newPassword: string): Chainable<void>;
+        editAddress(): Chainable<void>;
+        editDetails(): Chainable<void>;
     }
 }

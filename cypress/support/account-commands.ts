@@ -1,4 +1,5 @@
 import userData from '../fixtures/account-user-data.json'
+import { randomiseData } from '../utils/test-data-utils';
 
 interface DetailsOptions {
     firstName?: string;
@@ -15,6 +16,26 @@ interface DetailsOptions {
     zip?: string;
     login?: string;
     password?: string;
+}
+
+const newDetails: DetailsOptions = {
+    firstName: randomiseData(userData.personalDetails.firstName),
+    lastName: randomiseData(userData.personalDetails.lastName),
+    email: `${randomiseData('patpawcy')}@mailinator.com`,
+    phone: randomiseData(userData.personalDetails.phone),
+    fax: randomiseData(userData.personalDetails.fax)
+}
+
+const newAddress: DetailsOptions = {
+    firstName: randomiseData(userData.personalDetails.firstName),
+    lastName: randomiseData(userData.personalDetails.lastName),
+    company: randomiseData(userData.address.company),
+    addressLine1: randomiseData(userData.address.addressLine1),
+    addressLine2: randomiseData(userData.address.addressLine2),
+    city: randomiseData(userData.address.city),
+    country: 'United Kingdom',
+    region: 'Aberdeen',
+    zip: randomiseData(userData.address.zip)
 }
 
 Cypress.Commands.add('fillDetails', (section: string, options?: DetailsOptions) => {
@@ -91,3 +112,49 @@ Cypress.Commands.add('openAccountSection', (section: string) => {
     cy.get('.side_account_list').find('li').contains(section).click();
 });
 
+
+Cypress.Commands.add('changePassword', (oldPassword: string, newPassword: string) => {
+    cy.get('#PasswordFrm_current_password').type(oldPassword);
+    cy.get('#PasswordFrm_password').type(newPassword);
+    cy.get('#PasswordFrm_confirm').type(newPassword);
+    cy.get('button[title="Continue"]').click();
+});
+
+Cypress.Commands.add('editAddress', () => {
+    cy.get('#AddressFrm_firstname').clear().type(newAddress.firstName);
+    cy.get('#AddressFrm_lastname').clear().type(newAddress.lastName);
+    cy.get('#AddressFrm_company').clear().type(newAddress.company);
+    cy.get('#AddressFrm_address_1').clear().type(newAddress.addressLine1);
+    cy.get('#AddressFrm_address_2').clear().type(newAddress.addressLine2);
+    cy.get('#AddressFrm_city').clear().type(newAddress.city)
+    cy.get('#AddressFrm_country_id').select(newAddress.country);
+    cy.get('#AddressFrm_zone_id').select(newAddress.region);
+    cy.get('#AddressFrm_postcode').clear().type(newAddress.zip);
+
+    cy.step('Save changes');
+    cy.get('button[title="Continue"]').click();
+    
+    cy.step('Verify that updated details are displayed');
+    cy.assertSuccessBanner('Your address has been successfully updated');
+    Object.keys(newAddress).forEach((key) => {
+        cy.get('table').find('address').should('contain', newAddress[key])
+    });
+});
+
+Cypress.Commands.add('editDetails', () => {
+    cy.get('#AccountFrm_firstname').clear().type(newDetails.firstName);
+    cy.get('#AccountFrm_lastname').clear().type(newDetails.lastName);
+    cy.get('#AccountFrm_email').clear().type(newDetails.email);
+    cy.get('#AccountFrm_telephone').clear().type(newDetails.phone);
+    cy.get('#AccountFrm_fax').clear().type(newDetails.fax);
+
+    cy.step('Save changes');
+    cy.get('button[title="Continue"]').click();
+    cy.assertSuccessBanner('Success: Your account has been successfully updated.');
+    
+    cy.step('Verify that updated details are displayed');
+    cy.openAccountSection('Edit account details');
+    Object.keys(newDetails).forEach((key, index) => {
+        cy.get('.form-group').find('input').eq(index).should('have.attr', 'value', newDetails[key])
+    });
+});
