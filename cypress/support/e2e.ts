@@ -18,6 +18,7 @@ import './commands'
 import './main-page-commands'
 import './general-commands'
 import './account-commands'
+import './order-commands'
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 

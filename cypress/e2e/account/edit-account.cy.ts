@@ -1,8 +1,10 @@
+import user from '../../fixtures/account-user-data.json';
+
 describe('Editing account', () => {
     let newPassword: string = Cypress.env('password') + 'updated';
 
     beforeEach(() => {
-        cy.login();
+        cy.login(user.loginDetails.login);
         cy.visit('/index.php?rt=account/account');
     });
 
@@ -12,7 +14,7 @@ describe('Editing account', () => {
             region: 'Alaska'
         }
 
-        let oldEmail: string = 'patpawcy@mailinator.com';
+        let oldEmail: string = user.loginDetails.login;
 
         cy.step('Teardown - set the previous password');
         cy.openAccountSection('Change password');
@@ -43,7 +45,7 @@ describe('Editing account', () => {
              let fieldName: string[] = ['Login Name', 'First Name', 'Last Name', 'E-Mail', 'Telephone', 'Fax'];
              cy.wrap(el).should('contain', fieldName[index]);
         });
-        cy.get('.input-group').contains(Cypress.env('login')).children().should('have.length', 0);
+        cy.get('.input-group').contains(user.loginDetails.login).children().should('have.length', 0);
 
         cy.step('Edit the fields');
         cy.editDetails();
@@ -80,13 +82,13 @@ describe('Editing account', () => {
         cy.step('Try to log in using the old password');
         cy.openAccountSection('Logoff');
         cy.visit('/index.php?rt=account/login');
-        cy.get('#loginFrm_loginname').type(Cypress.env('login'));
+        cy.get('#loginFrm_loginname').type(user.loginDetails.login);
         cy.get('#loginFrm_password').type(Cypress.env('password'));
         cy.get('button[title="Login"]').click();
         cy.assertErrorBanner('Incorrect login or password provided');
 
         cy.step('Log in with the new password')
-        cy.get('#loginFrm_loginname').clear().type(Cypress.env('login'));
+        cy.get('#loginFrm_loginname').clear().type(user.loginDetails.login);
         cy.get('#loginFrm_password').type(newPassword);
         cy.get('button[title="Login"]').click();
         cy.url().should('contain', 'account/account');

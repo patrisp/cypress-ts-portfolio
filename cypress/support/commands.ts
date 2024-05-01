@@ -39,8 +39,8 @@
 declare namespace Cypress {
     interface Chainable {
         //general commands
-        login(): Chainable<void>;
-        assertBreadcrumbs(secondBreadcrumb: string, thirdBreadcrumb?: string, fourthBreadcrumb?: string): Chainable<void>;
+        login(username?: string): Chainable<void>;
+        assertBreadcrumbs(secondBreadcrumb: string, thirdBreadcrumb?: string, fourthBreadcrumb?: string, fifthBreadcrumb?: string): Chainable<void>;
         assertPageTitle(title: string): Chainable<void>;
         assertSuccessBanner(content: string): Chainable<void>;
         assertErrorBanner(content: string): Chainable<void>;
@@ -59,5 +59,17 @@ declare namespace Cypress {
         changePassword(oldPassword: string, newPassword: string): Chainable<void>;
         editAddress(): Chainable<void>;
         editDetails(): Chainable<void>;
+        //order commands
+        goToCart(): Chainable<void>;
+        checkCart(amount: number, price: number): Chainable<void>;
+        selectProduct(subtypes: boolean, name: string, quantity?: number, type?: string): Chainable<void>;
+        assertCartContent(row: number, productName: string, productId: string, itemNo: number, unitPrice: number, productType?: string): Chainable<void>;
+        assertOrderPrice(type: string): Chainable<void>;
+        assertPaymentSection(type: string): Chainable<void>;
+        assertShippingSection(type: string): Chainable<void>;
+        assertItemsInYourCartSection(/*row: number, productName: string, productUnitPrice: number, quantity: number, productType?: string */): Chainable<void>;
+        fillGuestDetails(): Chainable<void>;
+        assertReturnPolicy(): Chainable<void>;
+        assertOrderSummary(): Chainable<void>;
     }
 }
