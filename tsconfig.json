@@ -2,7 +2,7 @@
     "compilerOptions": {
       "target": "es5",
       "lib": ["es5", "dom"],
-      "types": ["cypress", "node", "@cypress/grep", "cypress-plugin-steps"],
+      "types": ["cypress", "node", "@cypress/grep", "cypress-plugin-steps", "@percy/cypress"],
       "resolveJsonModule": true,
       "esModuleInterop": true
     },

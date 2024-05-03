@@ -18,6 +18,8 @@
   "homepage": "https://github.com/patrisp/cypress-ts-portfolio#readme",
   "devDependencies": {
     "@cypress/grep": "^4.0.1",
+    "@percy/cli": "^1.28.5",
+    "@percy/cypress": "^3.1.2",
     "cypress": "^13.8.1",
     "typescript": "^5.3.3"
   },
