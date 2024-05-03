@@ -67,7 +67,7 @@ declare namespace Cypress {
         assertOrderPrice(type: string): Chainable<void>;
         assertPaymentSection(type: string): Chainable<void>;
         assertShippingSection(type: string): Chainable<void>;
-        assertItemsInYourCartSection(/*row: number, productName: string, productUnitPrice: number, quantity: number, productType?: string */): Chainable<void>;
+        assertItemsInYourCartSection(): Chainable<void>;
         fillGuestDetails(): Chainable<void>;
         assertReturnPolicy(): Chainable<void>;
         assertOrderSummary(): Chainable<void>;
