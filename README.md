@@ -8,7 +8,7 @@ The goal of this project is to automate the testing of Test Automation Store web
 ## Features
 - **End-to-End Testing** 
 - **Visual regression testing with Percy.io** 
-- **JavaScript**
+- **TypeScript**
 
 
 ## Installation
