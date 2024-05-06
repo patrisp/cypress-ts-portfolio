@@ -18,7 +18,8 @@ describe('Account creation', () => {
         cy.step('Click on login/register button');
         cy.get('#customer_menu_top').find('li').click();
 
-        cy.step('Check if the user has been redirected to the correct page')
+        cy.step('Check if the user has been redirected to the correct page');
+        cy.percySnapshot('Register/Login page');
         cy.url().should('contain', 'account/login');
         cy.assertBreadcrumbs('Register Account', 'Login');
         cy.assertPageTitle('Account Login');
@@ -39,6 +40,7 @@ describe('Account creation', () => {
         cy.assertPageTitle('Create Account');
 
         cy.step('Check "Register" page contents');
+        cy.percySnapshot('Register page');
         cy.get('#AccountFrm').within(() => {
             cy.get('p').should('contain', 'If you already have an account with us, please login at the login page').children().should('have.attr', 'href', 'https://automationteststore.com/index.php?rt=account/login');
             
@@ -75,6 +77,7 @@ describe('Account creation', () => {
         cy.get('button[title="Continue"]').click();
 
         cy.step('Check if user has been redirected to the correct page');
+        cy.percySnapshot('Register - success');
         cy.url().should('contain', 'account/success');
         cy.assertBreadcrumbs('Account', 'Success');
         cy.assertPageTitle('Your Account Has Been Created!');
@@ -138,6 +141,7 @@ describe('Account creation', () => {
             cy.get('button[title="Continue"]').click();
 
             cy.step('Check error message');
+            cy.percySnapshot('Register account - "email already exists" error');
             cy.get('.alert').should('contain', error.emailExists);
         });
 
@@ -155,6 +159,7 @@ describe('Account creation', () => {
             cy.get('button[title="Continue"]').click();
 
             cy.step('Check error message');
+            cy.percySnapshot('Register account - "login already exists" error')
             cy.get('.alert').should('contain', error.loginExists);
         });
 
@@ -165,6 +170,7 @@ describe('Account creation', () => {
             cy.get('button[title="Continue"]').click();
 
             cy.step('Check error message');
+            cy.percySnapshot('Register account - "mandatory fields missing" error');
             let errors: string[] = [error.address, error.city, error.emailInvalid, error.loginInvalid, error.password, error.zip, error.firstName, error.lastName, error.region];
             errors.forEach(string => {
                 cy.get('.alert').should('contain', string);
@@ -183,6 +189,7 @@ describe('Account creation', () => {
             cy.get('button[title="Continue"]').click();
 
             cy.step('Check error message');
+            cy.percySnapshot('Register account - "T&C missing" error');
             cy.get('.alert').should('contain', error.policy);
         });
     });

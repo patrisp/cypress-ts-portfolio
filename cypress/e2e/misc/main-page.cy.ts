@@ -4,6 +4,7 @@ describe('Main Page display and interaction', () => {
     });
 
     it('Links on the main page are displayed correctly and redirect users to correct pages', () => {
+        cy.percySnapshot('Main page');
         cy.step('Click on each link displayed in the footer');
         cy.checkFooterLinks();
 
@@ -15,6 +16,7 @@ describe('Main Page display and interaction', () => {
         cy.step('Verify that banner is automatically updated after 6 seconds');
         cy.get('[data-banner-id="9"]').should('be.visible').wait(6000);
         cy.get('[data-banner-id="9"]').should('not.be.visible');
+        cy.percySnapshot('Main page - the second banner');
         cy.get('[data-banner-id="10"]').should('be.visible');
         
         cy.step('Click on arrow buttons to change images in the banner');
@@ -27,7 +29,7 @@ describe('Main Page display and interaction', () => {
     });
 
     it('Promo section contains correct details', () => {
-        cy.step('Check if 4 sections are displayed')
+        cy.step('Check if 4 sections are displayed');
         cy.get('.promo_section').children().should('have.length', 4);
 
         cy.step('Check if all 4 icons are visible');

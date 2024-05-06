@@ -1,4 +1,4 @@
-import user from '../../fixtures/account-user-data.json';
+import user from '../../fixtures/account-edit-user-data.json';
 
 describe('Editing account', () => {
     let newPassword: string = Cypress.env('password') + 'updated';
@@ -14,7 +14,7 @@ describe('Editing account', () => {
             region: 'Alaska'
         }
 
-        let oldEmail: string = user.loginDetails.login;
+        let oldEmail: string = user.personalDetails.email;
 
         cy.step('Teardown - set the previous password');
         cy.openAccountSection('Change password');
@@ -85,6 +85,7 @@ describe('Editing account', () => {
         cy.get('#loginFrm_loginname').type(user.loginDetails.login);
         cy.get('#loginFrm_password').type(Cypress.env('password'));
         cy.get('button[title="Login"]').click();
+        cy.percySnapshot('Login - fail');
         cy.assertErrorBanner('Incorrect login or password provided');
 
         cy.step('Log in with the new password')

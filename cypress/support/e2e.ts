@@ -19,6 +19,8 @@ import './main-page-commands'
 import './general-commands'
 import './account-commands'
 import './order-commands'
+import '@percy/cypress';
+
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 

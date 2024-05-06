@@ -6,8 +6,9 @@ Cypress.Commands.add('checkFooterLinks', () => {
 
     cy.get('.info_links_footer').find('a').should('have.length', 7).and('be.visible');
 
-    linkNames.forEach((name) => {
+    linkNames.forEach((name, index) => {
         cy.get('.info_links_footer').find('a').contains(name).click();
+        cy.percySnapshot(`Main page footer links - ${linkNames[index]}`)
         cy.title().should('contain', name);
         cy.go('back');
     });

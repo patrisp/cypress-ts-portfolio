@@ -59,6 +59,7 @@ describe('Ordering products', () => {
         cy.assertPageTitle('Checkout Confirmation');
         
         cy.section('Check page details');
+        cy.percySnapshot('Checkout page');
         cy.assertReturnPolicy();
         cy.assertShippingSection('user');
         cy.assertPaymentSection('user');
@@ -76,6 +77,7 @@ describe('Ordering products', () => {
         cy.assertPageTitle('Your Order Has Been Processed!');
 
         cy.step('Check page details');
+        cy.percySnapshot('Order submitted page - registered user');
         cy.get('.mb40').within(() => {
             cy.contains(/Your order #[0-9]+ has been created!/).invoke('text').then((text) => {
                 let orderId = text.match(/#(\d+)/)[1];
@@ -123,7 +125,7 @@ describe('Ordering products', () => {
                 cy.wrap(el).click();
             });
         });
-
+        cy.percySnapshot('Empty cart');
         cy.get('.contentpanel').should('contain', 'Your shopping cart is empty!');
         cy.get('.product-list').should('not.exist');
         cy.get('#cart_checkout2').should('not.exist');
@@ -211,6 +213,7 @@ describe('Ordering products', () => {
         cy.assertPageTitle('Your Order Has Been Processed!');
 
         cy.step('Check page details');
+        cy.percySnapshot('Order submitted page - guest');
         cy.get('.contentpanel').should('contain', 'Your order has been successfully processed!').and('contain', 'Thank you for shopping with us!');
         cy.contains('invoice page.').children().should('have.attr', 'href').then(href => {
             expect(href).to.contain('rt=account/invoice&');
