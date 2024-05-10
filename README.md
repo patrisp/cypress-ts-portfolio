@@ -8,8 +8,7 @@ The goal of this project is to automate the testing of Test Automation Store web
 ## Features
 - **End-to-End Testing** 
 - **Visual regression testing with Percy.io** 
-- **TypeScript**
-
+- **Filtering tests by tags**
 
 ## Installation
 
@@ -36,9 +35,17 @@ Install dependencies
 Run all tests in headless mode
 
 ```bash
-  npm run cy:run
+  npm run cy:all
 ```
 
+Run all regression tests in headless mode
 
+```bash
+  npm run cy:regression
+```
 
+Run all negative tests in headless mode
 
+```bash
+  npm run cy:negative
+```
