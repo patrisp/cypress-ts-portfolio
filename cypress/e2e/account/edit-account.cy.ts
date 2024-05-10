@@ -1,6 +1,10 @@
 import user from '../../fixtures/account-edit-user-data.json';
 
-describe('Editing account', () => {
+describe('Editing account', {
+    tags: [
+        "regression"
+    ]
+}, () => {
     let newPassword: string = Cypress.env('password') + 'updated';
 
     beforeEach(() => {

@@ -1,4 +1,8 @@
-describe('Main Page display and interaction', () => {
+describe('Main Page display and interaction', {
+    tags: [
+        "regression"
+    ]
+}, () => {
     beforeEach(() => {
         cy.visit('/');
     });

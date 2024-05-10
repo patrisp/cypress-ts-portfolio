@@ -6,7 +6,11 @@ describe('Account creation', () => {
         cy.visit('/');
     });
     
-    it('User can create a new account', () => {
+    it('User can create a new account', {
+        tags: [
+            "regression"
+        ]
+    }, () => {
         cy.step('Set test data - unique email and login values');
         let emailName: string = 'patpaw' + (Math.random() + 1).toString(36).substring(7);
         cy.readFile('cypress/fixtures/account-user-data.json').then((json) => {
@@ -112,7 +116,11 @@ describe('Account creation', () => {
             }); 
         });
     });
-    context('User cannot create a new account - incorrect or missing data', () => {
+    context('User cannot create a new account - incorrect or missing data', {
+        tags: [
+            'negative'
+        ]
+    }, () => {
         before(() => {
             cy.step('Set test data - unique email and login values');
             let emailName: string = 'patpaw' + (Math.random() + 1).toString(36).substring(7);

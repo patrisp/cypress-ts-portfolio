@@ -1,7 +1,11 @@
 import product from '../../fixtures/order-products.json'
 import { getCartPrice, getTotalProductPrice } from '../../utils/price-calculation-utils';
 
-describe('Ordering products', () => {
+describe('Ordering products', {
+    tags: [
+        "regression"
+    ]
+}, () => {
 
     beforeEach(() => {
         cy.login();
